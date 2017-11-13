@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou.mall.mapper.ShoppingCartMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyou.mall.entity.ShoppingCart" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+        <result column="good_uuid" property="goodUuid" jdbcType="VARCHAR" />
+        <result column="good_price" property="goodPrice" jdbcType="DOUBLE" />
+        <result column="create_time" property="createTime" jdbcType="DATE" />
+        <result column="number" property="number" jdbcType="INTEGER" />
+        <collection property="good" ofType="com.zhiyou.mall.entity.Good" column="good_uuid"
+                    select="com.zhiyou.mall.mapper.GoodMapper.selectShoppingCartInfoGood"></collection>
+    </resultMap>
+    <insert id="insertCartInfo" parameterType="java.util.Map">
+    insert into shopping_cart (user_uuid,good_uuid,good_price,create_time,number) values (#{userUuid},#{goodUuid},#{goodSales},#{createTime},#{number});
+  </insert>
+    <select id="selectByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from shopping_cart where user_uuid=#{_parameter}
+    </select>
+</mapper>

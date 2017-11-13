@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou.mall.mapper.GoodMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyou.mall.entity.Good">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="good_uuid" property="goodUuid" jdbcType="VARCHAR"/>
+        <result column="good_head" property="goodHead" jdbcType="VARCHAR"/>
+        <result column="good_desc" property="goodDesc" jdbcType="VARCHAR"/>
+        <result column="good_number" property="goodNumber" jdbcType="INTEGER"/>
+        <result column="good_price" property="goodPrice" jdbcType="DOUBLE"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <!--新添加字段-->
+        <result column="good_img" property="goodImg" jdbcType="VARCHAR"/>
+        <result column="good_sales" property="goodSales" jdbcType="DOUBLE"/>
+        <result column="good_mid_img" property="goodMidImg" jdbcType="VARCHAR"/>
+        <result column="good_big_img" property="goodBigImg" jdbcType="VARCHAR"/>
+        <result column="express_fee" property="expressFee" jdbcType="DOUBLE"/>
+        <result column="good_detail_img" property="goodDetailImg" jdbcType="VARCHAR"/>
+        <association property="goodsClassesPart" javaType="com.zhiyou.mall.entity.GoodsClassesPart"
+                     select="com.zhiyou.mall.mapper.GoodsClassesPartMapper.selectByGModelId" column="g_model_id"/>
+        <association property="goodsClasses" javaType="com.zhiyou.mall.entity.Good" column="g_class_id"
+                     select="com.zhiyou.mall.mapper.GoodsClassesMapper.selectGoodInfoGoodsClasses"></association>
+    </resultMap>
+    <select id="selectOrderInfoByGoodUuid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * from good where good_uuid = #{_paramter}
+    </select>
+    <!--与购物车的懒加载-->
+    <select id="selectShoppingCartInfoGood" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from good where good_uuid=#{good_uuid}
+    </select>
+</mapper>

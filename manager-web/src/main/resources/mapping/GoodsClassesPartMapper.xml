@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou.mall.mapper.GoodsClassesPartMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou.mall.entity.GoodsClassesPart" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gclasses_id" property="gclassesId" jdbcType="INTEGER" />
+    <result column="gcpart_content" property="gcpartContent" jdbcType="VARCHAR" />
+    <result column="gcpart_explain" property="gcpartExplain" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <!--进入页面显示数据-->
+   <select id="selectByRank" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * from goods_classes_part where gclasses_id=#{a}
+   </select>
+  <!--获取二级分类的模板内容-->
+  <select id="selectPartById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * from goods_classes_part where id=#{id}
+  </select>
+  <!--添加模板内容-->
+  <insert id="addPart" parameterType="com.zhiyou.mall.entity.GoodsClassesPart">
+    insert into goods_classes_part(gclasses_id,gcpart_content,gcpart_explain,create_time) VALUES (#{gclassesId},#{gcpartContent},#{gcpartExplain},#{createTime})
+  </insert>
+  <!--编剧模板内容-->
+  <update id="editPart" parameterType="com.zhiyou.mall.entity.GoodsClassesPart">
+    update goods_classes_part set gcpart_content=#{gcpartContent},gcpart_explain=#{gcpartExplain},create_time=#{createTime} where id=#{id}
+  </update>
+  <!--删除模板内容-->
+  <delete id="deletePartById" parameterType="java.lang.Integer">
+    delete from goods_classes_part where id=#{id}
+  </delete>
+  <!--批量删除-->
+  <delete id="deletePartData" parameterType="java.lang.Integer">
+    delete from goods_classes_part where id=#{idData}
+  </delete>
+
+  <select id="selectByGModelId" parameterType="java.lang.Integer"
+          resultType="com.zhiyou.mall.entity.GoodsClassesPart">
+    select * from goods_classes_part WHERE id = #{_parameter}
+  </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou.mall.mapper.OrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou.mall.entity.OrderInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="good_uuid" property="goodUuid" jdbcType="VARCHAR" />
+    <result column="good_head" property="goodHead" jdbcType="VARCHAR" />
+    <result column="good_img" property="goodImg" jdbcType="VARCHAR" />
+    <result column="good_price" property="goodPrice" jdbcType="DOUBLE" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="all_price" property="allPrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="">
+
+  </select>
+  <select id="selectOrderByOrderNum" parameterType="java.lang.String" resultType="OrderInfo">
+    SELECT  * FROM order_info WHERE order_num = #{_paramter}
+  </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou.mall.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou.mall.entity.Order" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+    <result column="good_count" property="goodCount" jdbcType="INTEGER" />
+    <result column="all_price" property="allPrice" jdbcType="DOUBLE" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="pay_time" property="payTime" jdbcType="DATE" />
+    <result column="send_time" property="sendTime" jdbcType="DATE" />
+    <result column="finish_time" property="finishTime" jdbcType="DATE" />
+    <result column="over_time" property="overTime" jdbcType="DATE" />
+    <result column="leave_word" property="leaveWord" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectAlls" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT * FROM `order`
+    <if test="seek != null and seek != ''">
+      <where>
+        order_num like concat('%',#{seek},'%') or user_uuid like concat('%',#{seek},'%')
+      </where>
+    </if>
+  </select>
+
+  <update id="updateOrderByOrderNum" parameterType="java.util.HashMap">
+    UPDATE `order` SET leave_word =#{leaveWord} WHERE order_num = ${orderNum}
+  </update>
+  <select id="">
+
+  </select>
+  <delete id="deleteOrderByOrderNum" parameterType="java.lang.String">
+    DELETE FROM `order` WHERE order_num = #{orderNum}
+  </delete>
+  <!--批量删除-->
+  <delete id="delAllOrderByOM" parameterType="java.util.HashMap">
+    DELETE FROM `order` WHERE order_num in
+    <foreach collection="order_num" item="order_num" open="(" separator="," close=")">
+      #{order_num}
+    </foreach>
+  </delete>
+</mapper>
